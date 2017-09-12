@@ -2,28 +2,31 @@
 using System.Linq;
 using Babystat.Data;
 using Babystat.Models;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Babystat.Services
 {
-    public static class DefaultUserCreator
+    public class DefaultUserCreator : IDefaultUserCreator
     {
-        public static void CreateDefaultUser(this IApplicationBuilder app)
+        ApplicationDbContext context { get; set; }
+        UserManager<ApplicationUser> userManager { get; set; }
+
+        public DefaultUserCreator(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            using (var db = app.ApplicationServices.GetService<ApplicationDbContext>())
+            this.context = context;
+            this.userManager = userManager;
+        }
+
+        public void CreateDefaultUser()
+        {
+            if (!context.Users.Any(x => x.UserName == "username"))
             {
-                if (!db.Users.Any(x => x.UserName == "username"))
+                var user = new ApplicationUser { UserName = "username", Email = "email@example.com" };
+                var createTask = userManager.CreateAsync(user, "password");
+                createTask.Wait();
+                if (!createTask.Result.Succeeded)
                 {
-                    var userManager = app.ApplicationServices.GetService<UserManager<ApplicationUser>>();
-                    var user = new ApplicationUser { UserName = "username", Email = "email@example.com" };
-                    var createTask = userManager.CreateAsync(user, "password");
-                    createTask.Wait();
-                    if (!createTask.Result.Succeeded)
-                    {
-                        throw new Exception("Creation of default user failed: " + createTask.Result.ToString());
-                    }
+                    throw new Exception("Creation of default user failed: " + createTask.Result.ToString());
                 }
             }
         }

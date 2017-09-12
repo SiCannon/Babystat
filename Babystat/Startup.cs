@@ -35,12 +35,13 @@ namespace Babystat
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddTransient<IDefaultUserCreator, DefaultUserCreator>();
+            
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDefaultUserCreator defaultUserCreator)
         {
             if (env.IsDevelopment())
             {
@@ -64,7 +65,7 @@ namespace Babystat
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.CreateDefaultUser();
+            defaultUserCreator.CreateDefaultUser();
         }
     }
 }
