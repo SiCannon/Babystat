@@ -26,7 +26,7 @@ namespace Babystat.Services
             if (!context.Users.Any(x => x.UserName == defaultUserOptions.Username))
             {
                 var user = new ApplicationUser { UserName = defaultUserOptions.Username, Email = defaultUserOptions.Email};
-                var createTask = userManager.CreateAsync(user, "password");
+                var createTask = userManager.CreateAsync(user, defaultUserOptions.Password);
                 createTask.Wait();
 
                 if (!createTask.Result.Succeeded)
