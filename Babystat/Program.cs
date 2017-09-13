@@ -23,8 +23,8 @@ namespace Babystat
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration(config =>
                 {
-                    config.AddJsonFile(@"Settings\defaultuser.secret.json", optional: false);
-                    config.AddJsonFile(@"Settings\database.secret.json", optional: false);
+                    config.AddJsonFile(Path.Combine("Settings", "defaultuser.secret.json"), optional: false);
+                    config.AddJsonFile(Path.Combine("Settings", "database.secret.json"), optional: false);
                 })
                 .Build();
         }
