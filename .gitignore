@@ -4,6 +4,8 @@
 #secrets
 *.secret.json
 
+**/Properties/launchSettings.json
+
 # User-specific files
 *.suo
 *.user
