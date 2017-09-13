@@ -29,7 +29,10 @@ namespace Babystat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            {
+                var password = Configuration["Password"];
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection").Replace("%PASSWORD%", password));
+            });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
