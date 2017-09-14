@@ -13,6 +13,7 @@ using Babystat.Models;
 using Babystat.Services;
 using Babystat.Models.Settings;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Babystat
 {
@@ -70,6 +71,11 @@ namespace Babystat
             }
 
             app.UseStaticFiles();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();
 
