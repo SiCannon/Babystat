@@ -14,6 +14,7 @@ using Babystat.Services;
 using Babystat.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.HttpOverrides;
+using Babystat.Config;
 
 namespace Babystat
 {
@@ -52,6 +53,14 @@ namespace Babystat
             services.AddOptions();
             services.Configure<DefaultUserOptions>(Configuration.GetSection("DefaultUser"));
             services.AddTransient<IDefaultUserCreator, DefaultUserCreator>();
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperConfig());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddMvc();
         }

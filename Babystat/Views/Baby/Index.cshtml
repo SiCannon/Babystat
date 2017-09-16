@@ -1,0 +1,13 @@
+﻿@model Babystat.Models.BabyViewModels.BabyIndexVm
+@{
+    ViewData["Title"] = "Babies";
+}
+
+<h2>Index</h2>
+
+@foreach (var b in Model.Babies)
+{
+    <p>@b.Name</p>
+}
+
+<a asp-controller="Baby" asp-action="New">new...</a>

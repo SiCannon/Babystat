@@ -1,0 +1,18 @@
+﻿@model Babystat.Models.BabyViewModels.NewBabyEm
+@{
+    ViewData["Title"] = "New";
+}
+<h3>New Baby</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Baby" asp-action="New">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Create</button>
+        </form>
+    </div>
+</div>
