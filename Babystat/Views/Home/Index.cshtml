@@ -1,11 +1,42 @@
 ﻿@model Babystat.Models.HomeViewModels.IndexViewModel
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Home";
 }
 
-<div style="margin-top: 20px">
+<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+    <div class="home-buttons">
+
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-primary btn-lg btn-block" asp-controller="Baby" asp-action="Index">Babies</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-primary btn-lg btn-block" asp-controller="Settings" asp-action="Edit">Settings</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-default btn-lg btn-block" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage"><small>Logged in as</small> <b>@UserManager.GetUserName(User)</b></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-default btn-lg btn-block">Log out</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+@*<div style="margin-top: 20px">
     @foreach (var s in Model.Usernames)
     {
         <div class="alert alert-warning">@s</div>
     }
-</div>
+</div>*@
