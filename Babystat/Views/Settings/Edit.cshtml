@@ -1,0 +1,16 @@
+﻿@model Babystat.Models.SettingsViewModels.SettingsEditVm
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<h3>Settings</h3>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="ActiveBabyId" class="control-label">Active Baby</label>
+        <select class="form-control" asp-for="ActiveBabyId" asp-items="@Model.Babies">
+            <option></option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

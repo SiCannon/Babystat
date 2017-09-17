@@ -32,6 +32,20 @@ namespace Babystat.Data.Migrations
                     b.ToTable("Babies");
                 });
 
+            modelBuilder.Entity("Babystat.Data.Entity.Settings", b =>
+                {
+                    b.Property<int>("SettingsId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ActiveBabyId");
+
+                    b.HasKey("SettingsId");
+
+                    b.HasIndex("ActiveBabyId");
+
+                    b.ToTable("Settings");
+                });
+
             modelBuilder.Entity("Babystat.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -187,6 +201,14 @@ namespace Babystat.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Babystat.Data.Entity.Settings", b =>
+                {
+                    b.HasOne("Babystat.Data.Entity.Baby", "ActiveBaby")
+                        .WithMany("Settings")
+                        .HasForeignKey("ActiveBabyId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

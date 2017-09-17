@@ -9,5 +9,7 @@ namespace Babystat.Data.Entity
     {
         public int BabyId { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<Settings> Settings { get; set; }
     }
 }
