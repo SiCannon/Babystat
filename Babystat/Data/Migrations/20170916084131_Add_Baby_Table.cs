@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Babystat.Data.Migrations
 {
-    public partial class Baby : Migration
+    public partial class Add_Baby_Table : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

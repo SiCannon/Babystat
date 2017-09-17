@@ -12,7 +12,7 @@ namespace Babystat.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20170916084131_Baby")]
-    partial class Baby
+    partial class Add_Baby_Table
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
