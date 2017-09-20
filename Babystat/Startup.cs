@@ -62,7 +62,11 @@ namespace Babystat
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeFolder("/");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
