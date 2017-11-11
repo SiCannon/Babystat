@@ -12,6 +12,7 @@ namespace Babystat.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Baby> Babies { get; set; }
+        public DbSet<Feed> Feeds { get; set; }
         public DbSet<Settings> Settings { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

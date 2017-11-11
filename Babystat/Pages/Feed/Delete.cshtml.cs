@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Babystat.Pages.Feed
 {
-    public class EditModel : PageModel
+    public class DeleteModel : PageModel
     {
         ApplicationDbContext db;
 
-        public EditModel(ApplicationDbContext db)
+        public DeleteModel(ApplicationDbContext db)
         {
             this.db = db;
         }
@@ -20,22 +20,12 @@ namespace Babystat.Pages.Feed
         public void OnGet(int id)
         {
             var feed = db.Feeds.Single(x => x.FeedId == id);
-            Model = new EditViewModel
+            TheViewModel = new DeleteViewModel 
             {
                 FeedId = feed.FeedId,
                 When = feed.When,
                 Amount = feed.Amount
             };
-        }
-
-        [BindProperty]
-        public EditViewModel Model { get; set; }
-
-        public class EditViewModel
-        {
-            public int FeedId { get; set; }
-            public DateTime When { get; set; }
-            public int Amount { get; set; }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -45,11 +35,20 @@ namespace Babystat.Pages.Feed
                 return Page();
             }
 
-            var feed = db.Feeds.Single(x => x.FeedId == Model.FeedId);
-            feed.When = Model.When;
-            feed.Amount = Model.Amount;
+            var feed = db.Feeds.Single(x => x.FeedId == TheViewModel.FeedId);
+            db.Feeds.Remove(feed);
             await db.SaveChangesAsync();
             return RedirectToPage("/Feed/Index");
+        }
+
+        [BindProperty]
+        public DeleteViewModel TheViewModel { get; set; }
+
+        public class DeleteViewModel
+        {
+            public int FeedId { get; set; }
+            public DateTime When { get; set; }
+            public int Amount { get; set; }
         }
     }
 }

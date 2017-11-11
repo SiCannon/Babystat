@@ -1,0 +1,14 @@
+﻿@page "{id:int}"
+@model DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete Feed</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="TheViewModel.FeedId" />
+    <p><b>@Model.TheViewModel.When</b> for <b>@(Model.TheViewModel.Amount)ml</b></p>
+    <button class="btn btn-primary" type="submit">Delete</button>
+</form>
+

@@ -4,7 +4,16 @@
     ViewData["Title"] = "Feeds";
 }
 
-@foreach (var s in Model.Dummy)
+@foreach (var s in Model.Feeds.OrderByDescending(x => x.Key))
 {
-    <p>@s</p>
+    <p><b>@s.Key.ToShortDateString()</b></p>
+    foreach (var feed in s.OrderByDescending(x => x.When))
+    {
+        <p>@feed.FeedId, @feed.When.ToShortTimeString(), @(feed.Amount)ml 
+            <a asp-page="./Edit" asp-route-id="@feed.FeedId">edit</a>
+            <a asp-page="./Delete" asp-route-id="@feed.FeedId">delete</a>
+        </p>
+    }
 }
+
+<a class="btn btn-default" asp-page="/Feed/Create">Create</a>
